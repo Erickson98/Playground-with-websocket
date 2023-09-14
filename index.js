@@ -42,6 +42,15 @@ server.on("upgrade", (req, socket, head) => {
       }
 
       console.log("Mensaje recibido:", decoded);
+      try {
+        const parsed = JSON.parse(decoded);
+        console.log(parsed);
+        if (parsed.command === "broadcast") {
+          broadcastMessage(parsed.message);
+        }
+      } catch (error) {
+        console.log("ill pass");
+      }
     }
   });
   socket.on("close", () => {

@@ -1,13 +1,35 @@
+ 
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- <script src="index.js"></script> -->
     <script src="front.js"></script>
+    <title>WebSocket Test</title>
 </head>
+
 <body>
-    
+    <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí">
+    <button id="sendButton">Enviar mensaje a todos</button>
+
+    <script>
+       
+        ws.addEventListener('message', function (event) {
+            console.log('Mensaje recibido del servidor:', event.data);
+        });
+
+        document.getElementById('sendButton').addEventListener('click', function () {
+             const message = document.getElementById('messageInput').value;
+             if (message) {
+                ws.send(JSON.stringify({ command: 'broadcast', message: message }));
+            }
+            //ws.send(JSON.stringify({ command: 'broadcast', message: 'Hola a todos los clientesasas!' }));
+        });
+    </script>
 </body>
+
 </html>
