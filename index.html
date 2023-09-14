@@ -1,33 +1,89 @@
- 
-
 <!DOCTYPE html>
 <html>
 
 <head>
+    <!-- 
+    * Establece la codificación de caracteres para la página.
+    * 
+    * @meta {string} charset - Codificación de caracteres UTF-8.
+    -->
     <meta charset="UTF-8">
+
+    <!-- 
+    * Asegura que la página sea responsive.
+    * 
+    * @meta {string} name - Nombre de la propiedad del viewport.
+    * @meta {string} content - Configuración del viewport.
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 
+    * Establece el título de la página.
+    * 
+    * @title {string} - Título de la página web.
+    -->
     <title>Document</title>
-    <!-- <script src="index.js"></script> -->
+
+    <!-- 
+    * Enlaza el archivo JavaScript que contiene la lógica del cliente.
+    * 
+    * @script {string} src - Ruta al archivo JavaScript del cliente.
+    -->
     <script src="front.js"></script>
-    <title>WebSocket Test</title>
 </head>
 
 <body>
+    <!-- 
+    * Campo de texto para que el usuario escriba su mensaje.
+    * 
+    * @input {string} type - Tipo de entrada (texto).
+    * @input {string} id - Identificador único para el elemento.
+    * @input {string} placeholder - Texto de marcador de posición.
+    -->
     <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí">
+
+    <!-- 
+    * Botón para enviar el mensaje.
+    * 
+    * @button {string} id - Identificador único para el botón.
+    -->
     <button id="sendButton">Enviar mensaje a todos</button>
 
     <script>
-       
+        // 
+        // Escucha el evento 'message' en el objeto WebSocket ws.
+        // Cuando se recibe un mensaje del servidor, se muestra en la consola.
+        // 
+        // @param {Event} event - El evento que desencadena la función.
+        // 
         ws.addEventListener('message', function (event) {
             console.log('Mensaje recibido del servidor:', event.data);
         });
 
+        // 
+        // Agrega un evento de clic al botón con el ID 'sendButton'.
+        // 
+        // @param {Event} - El evento que desencadena la función.
+        // 
         document.getElementById('sendButton').addEventListener('click', function () {
-             const message = document.getElementById('messageInput').value;
-             if (message) {
+            // 
+            // Obtiene el valor del campo de texto con el ID 'messageInput'.
+            // 
+            // @const {string} message - El mensaje escrito por el usuario.
+            // 
+            const message = document.getElementById('messageInput').value;
+
+            // 
+            // Verifica si el mensaje no está vacío.
+            // 
+            if (message) {
+                // 
+                // Envía el mensaje al servidor en formato JSON.
+                // 
+                // @method ws.send - Método para enviar datos a través del WebSocket.
+                // 
                 ws.send(JSON.stringify({ command: 'broadcast', message: message }));
             }
-            //ws.send(JSON.stringify({ command: 'broadcast', message: 'Hola a todos los clientesasas!' }));
         });
     </script>
 </body>
